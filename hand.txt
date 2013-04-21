@@ -1,0 +1,41 @@
+
+simple local
+
+local no-dele
+ 18 ('        MSG_AUTH1'):     1 avging    1773 usecs,    3633 bytes each, 0.00
+ 21 ('   TIME_HANDSHAKE'):     1 avging    1928 usecs,       0 bytes each, 0.00
+ 24 (' TIME_RSA_ENCRYPT'):     1 avging      77 usecs,      96 bytes each, 0.00
+ 25 ('         TIME_AES'):     2 avging       4 usecs,    1383 bytes each, 0.00
+ 29 ('       TIME_NONCE'):     2 avging       1 usecs,      96 bytes each, 0.00
+
+ 22 ('        TIME_HASH'):     1 avging      10 usecs,    7152 bytes each, 0.00
+ 23 (' TIME_RSA_DECRYPT'):     1 avging    1329 usecs,     768 bytes each, 0.00
+ 25 ('         TIME_AES'):     2 avging       4 usecs,    1383 bytes each, 0.00
+ 29 ('       TIME_NONCE'):     1 avging       1 usecs,      96 bytes each, 0.00
+
+total	     		       1928
+local key and nonce create     2
+encrypt AES key w/ RSA 	       77
+encrypt nonce,chit w/ AES      8
+bookkeeping,reading chit       68
+remote time	    	       1773
+RSA decrypt                                    1329
+decry nonce, chit			       8
+
+local dele
+ 18 ('        MSG_AUTH1'):     1 avging    2032 usecs,    8559 bytes each, 0.00
+ 20 ('        MSG_AUTH2'):     1 avging     269 usecs,     168 bytes each, 0.00
+ 21 ('   TIME_HANDSHAKE'):     1 avging    4351 usecs,       0 bytes each, 0.00
+ 23 (' TIME_RSA_DECRYPT'):     1 avging    1841 usecs,     768 bytes each, 0.00
+ 24 (' TIME_RSA_ENCRYPT'):     1 avging      85 usecs,      96 bytes each, 0.00
+ 25 ('         TIME_AES'):     2 avging      12 usecs,    3846 bytes each, 0.00
+ 29 ('       TIME_NONCE'):     2 avging       0 usecs,      96 bytes each, 0.00
+
+22 ('        TIME_HASH'):     2 avging       7 usecs,    4386 bytes each, 0.00
+ 23 (' TIME_RSA_DECRYPT'):     1 avging    1348 usecs,     768 bytes each, 0.00
+ 24 (' TIME_RSA_ENCRYPT'):     1 avging      86 usecs,      96 bytes each, 0.00
+ 25 ('         TIME_AES'):     2 avging      11 usecs,    3846 bytes each, 0.00
+ 29 ('       TIME_NONCE'):     1 avging       1 usecs,      96 bytes each, 0.00
+
+
+

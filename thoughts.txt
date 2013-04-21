@@ -1,0 +1,46 @@
+
+Show examples of:
+     - no-crypto, no auth
+     - auth server using fingerprint
+     - auth server, integrity w/ HMAC w/ session key created by client HMAC
+     - (above) but client sends server public key, server creates session key
+     - (above) plus crypto
+
+Make the case that capas needed: overhead of account setup, privileges
+are per-user vs per-job or need (POLP). Fine-grained anonymous sharing
+(just one file, or time window)
+
+Secret w/o authenticating the user still uses PKC: client asks for
+servers public key, verifies that it matches the fingerprint in the
+chit, and encrypts new session key w/ it.  Gets auth of server AND
+session key.
+
+Could be made marginally safer by having the the client send a
+(possibly single-use) public key to the server, the server encrypts w/
+teh public key. Safer because server makes up the session key.
+
+
+
+
+=============================================================================
+
+{Ksess}_SERVpub, {Nc,chit}_Ksess   -->
+
+<--{Ns}_CHITpub, Nc                            <-- in clear might be problem
+
+{Ns}_sess  -->
+
+<-- ack
+
+=============================================================================
+
+{Ksess}_SERVpub, {Nc,chit}_Ksess   -->
+
+<--{Ns}_CHIT_sess, Nc                            <-- in clear might be problem
+
+{Ns}_sess  -->
+
+<-- ack
+
+=============================================================================
+

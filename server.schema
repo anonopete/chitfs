@@ -1,0 +1,66 @@
+-- all paths start, but don't end, with '/'
+-- a dir has the "dir" column set. Any file or dir in the root dir has a 'path' of "".
+-- the first version of any file is 1. In fact all version are '1' for P3
+
+DROP TABLE IF EXISTS config;
+DROP TABLE IF EXISTS versions;
+DROP TABLE IF EXISTS chunkMap;
+DROP TABLE IF EXISTS limits;
+DROP TABLE IF EXISTS clients;
+DROP TABLE IF EXISTS chits;
+DROP TABLE IF EXISTS revocation;
+
+CREATE TABLE config (
+ chunkkey TEXT					-- ASCII version of key
+); 
+
+CREATE TABLE versions (
+ created INT,
+ modified INT,
+ len INT DEFAULT 0,
+ tomb INT NOT NULL DEFAULT 0,
+ archive INT NOT NULL DEFAULT 0,	-- archived copy, read-only
+ mode INT,
+ dir INT NOT NULL DEFAULT 0,
+ name VARCHAR(40),
+ path VARCHAR(80),
+ ts INT,
+ sig TEXT(45),
+ version INTEGER PRIMARY KEY,		-- alias for ROWID, AUTO_INCREMENTED AND NON NULL
+ UNIQUE (version,path));
+
+CREATE TABLE limits (
+ expires INT,
+ name VARCHAR(255),
+ max INT,
+ left INT DEFAULT 0,
+ type INT,				-- 0/1/2 read, write-bw, write-space
+ id INTEGER PRIMARY KEY,
+ pids TEXT DEFAULT "",
+ UNIQUE (name));
+
+CREATE TABLE clients (
+ pid INT,
+ id INTEGER PRIMARY KEY);
+
+
+CREATE TABLE chits (
+ expires INT,
+ chit TEXT,
+ path VARCHAR(255),
+ rights INT,				-- read=1/write=2/create=3/delete=4
+ auth INT,
+ name TEXT,
+ id INTEGER PRIMARY KEY);
+
+CREATE TABLE revocation (
+ expires INT,
+ hash VARCHAR(41),
+ id INTEGER PRIMARY KEY);
+
+CREATE TABLE chunkMap (
+ sig TEXT(45),
+ version INT,
+ mapID INTEGER PRIMARY KEY);		-- alias for ROWID, AUTO_INCREMENTED AND NON NULL
+
+INSERT INTO versions (created, modified, mode, dir, name, path) VALUES (strftime('%s','now'), strftime('%s','now'), 16886, 1, '', '');

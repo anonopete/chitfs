@@ -1,0 +1,99 @@
+
+enum MessageType {
+    MSG_GETATTR = 0;
+    MSG_CREATE = 1;
+    MSG_CHMOD = 2;
+    MSG_MKDIR = 3;
+    MSG_RMDIR = 4;
+    MSG_UNLINK = 5;
+    MSG_FLUSH = 6;
+    MSG_READDIR = 7;
+    MSG_OPEN = 8;
+    MSG_RENAME = 9;
+    MSG_TRUNCATE = 10;
+    MSG_QUERY_CHUNK = 11;
+    MSG_PUT_CHUNK = 12;
+    MSG_GET_CHUNK = 13;
+    MSG_HELLO = 14;
+    MSG_SERVER_BECOME_MASTER = 15;
+    MSG_SERVER_YOU_MASTER = 16;
+    MSG_AUTH1 = 18;
+    MSG_AUTH2 = 20;
+    TIME_HANDSHAKE = 21;
+    TIME_HASH = 22;
+    TIME_RSA_DECRYPT = 23;
+    TIME_RSA_ENCRYPT = 24;
+    TIME_AES = 25;
+    TIME_VERIFY = 26;
+    TIME_VERIFY_CHIT = 27;
+    TIME_SIGN = 28;
+    TIME_NONCE = 29;
+    TIME_SERV_AUTH1 = 30;
+    TIME_SERV_AUTH2 = 31;
+    TIME_CHIT_READ = 32;
+    TIME_CHIT_PARSE = 33;
+
+    MSG_GETATTR_REPLY = 40;
+    MSG_CREATE_REPLY = 41;
+    MSG_CHMOD_REPLY = 42;
+    MSG_MKDIR_REPLY = 43;
+    MSG_RMDIR_REPLY = 44;
+    MSG_UNLINK_REPLY = 45;
+    MSG_FLUSH_REPLY = 46;
+    MSG_READDIR_REPLY = 47;
+    MSG_OPEN_REPLY = 48;
+    MSG_RENAME_REPLY = 49;
+    MSG_TRUNCATE_REPLY = 50;
+    MSG_QUERY_CHUNK_REPLY = 51;
+    MSG_PUT_CHUNK_REPLY = 52;
+    MSG_GET_CHUNK_REPLY = 53;
+    MSG_HELLO_REPLY = 54;
+    MSG_SERVER_BECOME_MASTER_REPLY = 55;
+    MSG_SERVER_YOU_MASTER_REPLY = 56;
+    MSG_AUTH1_REPLY = 57;
+    MSG_AUTH1_PUB_REPLY = 58;
+    MSG_AUTH2_REPLY = 59;
+}
+
+
+message Message {
+    required int32            type = 1;
+    required int32            pid = 2;
+    required int32            res = 3;
+    required int32            seq = 4;
+    required int32            mode = 5;
+    required int32            len = 6;
+    optional string           path = 7;
+    optional bytes            data = 8;
+    optional Statbuf          statbuf = 9;
+    optional MsgReaddirRep    readdirrep = 10;
+    optional string           path2 = 11;
+    optional string           sig = 12;
+    repeated string           sigs = 13;
+    repeated int32            cnos = 14;
+    required string           name = 15;
+    optional Auth1            auth1 = 17;
+    optional bytes            nonce = 18;
+    optional bytes            encrypted_payload = 19;
+}
+
+
+message Auth1 {
+    required bytes        skey = 1;
+    required bytes        nonce_c = 2;
+    required bytes        chit = 4;
+}
+
+message Statbuf {
+    required int32        mode = 1;
+    required int32        size = 2;
+    required int32        ctime_secs = 5;
+    required int32        atime_secs = 6;
+    required int32        mtime_secs = 7;
+}
+
+message MsgReaddirRep {
+    repeated string        names = 1;
+}
+
+

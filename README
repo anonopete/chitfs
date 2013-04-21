@@ -1,0 +1,50 @@
+
+- close-to-open consistency
+- each version has a hash computed over recipe
+- client assigns some high random number to a version.
+- at next open, downloads *all* recipes
+  - local recipes tossed if they disagree
+  - possibly fix up recipe number of latest version
+  - toss local data if local version out of date
+
+
+- check 
+
+=============================================================================
+
+Client
+
+- still single-threaded, no unasked-for requests from server
+- all requests to server blocking
+
+
+=============================================================================
+
+Comm pattern
+- req-resp w/ resp at server
+
+
+- let's set it up w/ getattr/readdir going to server w/ some
+  timeout. Start at 0, but allow minutes.
+
+- Can send data back to server asynchronously, but what if server
+  needs it?
+
+- How about two local client sockets connecting to the same remote
+  server endpont? Second one is async, in a second thread, and is only
+  for pushing data. Need another socket to talk between the two
+  threads.
+
+- For now, don't push all extents back to the server w/ versions, have
+  option to not send extents.
+
+
+=============================================================================
+
+
+To resolve stuff:
+- unlink is a new version!
+- a write after an unlink re-instantiates!
+- file can be brought back after a delete, as long as the whole
+  directory hasn't gone.  Guess even then it can be brought back by
+  recreating the dir, and then accessing the deleted file .X.

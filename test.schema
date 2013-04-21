@@ -1,0 +1,8 @@
+-- all paths start, but don't end, with '/'
+-- a dir has the "dir" column set. Any file or dir in the root dir has a 'path' of "".
+-- the first version of any file is 1. In fact all version are '1' for P3
+
+DROP TABLE IF EXISTS test;
+
+CREATE TABLE test (stuff TEXT, path VARCHAR(80), id INTEGER PRIMARY KEY);
+

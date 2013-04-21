@@ -1,0 +1,22 @@
+
+
+dfs													server
+
+AUTH1: dfs_pub 						---> 
+									<---	server_pub, {session}_dfs_pub
+AUTH2: {chit, {nonce}_server_pub}_sess 		--->
+									<---	{nonce}_sess
+
+
+
+
+
+=======
+
+snowball	.58		1.41	2.37	(2 i3 imac 3.22 ghz  dual-core)
+apollo		.68		1.41	2.81 	(2 xeon  3.0 dual-core)
+monster:	.74 		1.51	3.11   	(2.66 core 2 duo)
+baltar		.78		1.67  	3.96	(2 xeon 2.66 dual-core)
+old air:	1.07		2.27	4.63    (1.8 core 2 duo)
+new air:	1.25		2.67	     5.54   (11" air)
+
